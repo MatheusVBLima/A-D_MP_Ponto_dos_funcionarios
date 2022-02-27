@@ -11,24 +11,24 @@ var selecionados = [];
 carregamentoInicial();
 
 async function retornCargo() {
-  fetch("https://flash-point-app.herokuapp.com/api/usuario/me", {
-    method: "Get",
-    headers: {
-      Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
-    },
-  })
-    .then((response) => response.json())
-    .then((usuario) => {
-      var cargo = "";
-      if (usuario.cargo === "ADMIN") {
-        cargo = "ADMIN";
-      } else if (usuario.cargo === "LIDER") {
-        cargo = "LIDER";
-      } else if (usuario.cargo === "APONTADOR") {
-        cargo = "APONTADOR";
-      }
-    });
+    fetch("https://flash-point-app.herokuapp.com/api/usuario/me", {
+            method: "Get",
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        })
+        .then((response) => response.json())
+        .then((usuario) => {
+            var cargo = "";
+            if (usuario.cargo === "ADMIN") {
+                cargo = "ADMIN";
+            } else if (usuario.cargo === "LIDER") {
+                cargo = "LIDER";
+            } else if (usuario.cargo === "APONTADOR") {
+                cargo = "APONTADOR";
+            }
+        });
 }
 
 function tabelaPontos() {
@@ -40,17 +40,14 @@ function tabelaPontos() {
         .then((response) => response.json())
         .then(async(funcionarios) => {
             document.querySelector(".innerHTML").innerHTML = "";
+            const main2 = document.createElement("div");
+            main2.setAttribute("class", "main2");
+            main2.innerHTML = `
+                <div class="titulos">
+                    <h3 class="h3_1">Hora extra<span>50%</span></h3>
+                    <h3 class="h3_2">Hora extra<span>100%</span></h3>
+                </div>`;
             funcionarios.map((val) => {
-                const main2 = document.createElement("div");
-                main2.setAttribute("class", "main2");
-                main2.innerHTML += `
-
-
-        <div class="titulos">
-            <h3 class="h3_1">Hora extra<span>50%</span></h3>
-            <h3 class="h3_2">Hora extra<span>100%</span></h3>
-        </div>`;
-
 
                 const listaFuncionarios = document.createElement("ul");
                 listaFuncionarios.setAttribute("class", "lista_funcionarios");
@@ -196,7 +193,6 @@ salvarBTN.addEventListener("click", (e) => {
         addPontos();
         addRevisao();
     }
-
 });
 
 function addPontos() {
@@ -234,7 +230,7 @@ function addRevisao() {
 
     if (checkAprovado) {
         status = "APROVADO";
-    } else if(checkRevisao) {
+    } else if (checkRevisao) {
         status = "REVISAO";
     } else {
         status = "CADASTRADO";
@@ -251,7 +247,7 @@ function addRevisao() {
             "Content-Type": "application/json",
             Authorization: "Bearer " + localStorage.getItem("token"),
         },
-    }).then(async (response) => response.json());
+    }).then(async() => { alert("Informações salvas") });
 }
 
 function onClickFuncionarioCheckbox(id, element) {
