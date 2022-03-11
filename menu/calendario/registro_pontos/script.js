@@ -113,18 +113,13 @@ function tabelaPontos() {
             const valor1 = document.querySelectorAll(".valor50");
             const valor2 = document.querySelectorAll(".valor100");
 
-            var timepicker = new TimePicker(valor1.item(0), {
+            var timepicker = new TimePicker(Array.from(valor1).concat(Array.from(valor2)), {
                 theme: 'cyan',
                 lang: 'pt',
             });
             timepicker.on('change', calendario);
-            
-            valor1.forEach(function(n, k, f) {
-                timepicker.setTarget(n);
-            });
-
-            valor2.forEach(function(n, k, f) {
-                timepicker.setTarget(n);
+            timepicker.on('open', function(evt) {
+                timepicker.container.element.style.top = (evt.element.offsetTop + 32) + "px";
             });
 
             var nomesFuncionarios = document.querySelectorAll(".nome_funcionario");
